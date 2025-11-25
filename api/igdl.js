@@ -10,7 +10,6 @@ export default async function handler(req, res) {
   const RAPIDAPI_KEY = process.env.RAPIDAPI_KEY;
 
   try {
-    // Call RapidAPI
     const apiRes = await fetch(
       `https://instagram-story-downloader-media-downloader.p.rapidapi.com/unified/url?url=${encodeURIComponent(url)}`,
       {
@@ -25,7 +24,6 @@ export default async function handler(req, res) {
     const mediaUrl = data?.data?.content?.media_url || data?.thumbnail_url;
     if (!mediaUrl) throw new Error("No media found");
 
-    // Send video back to Telegram
     await fetch(`https://api.telegram.org/bot${TELEGRAM_TOKEN}/sendVideo`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
